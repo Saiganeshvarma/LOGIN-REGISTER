@@ -40,37 +40,39 @@ var register = async(req,res)=>{
 }
 
 var login = async(req,res)=>{
-    try{
-        // collect the user information
-        var {userName,password} = req.body
-        var userThere = await user.findOne({userName})
-        if(!userThere){
-            res.status(400).json({message : "invalid user name or password"})
-        }
-
-        var isPassword = await byCrpt.compare(password,userThere.password)
-        console.log(isPassword);
-        if(!isPassword){
-            res.status(400).json({message : "invalid user name or password"})
-        }
-        // generate a json web token
-
-        var ganearteToeken = webToken.sign({
-            userId : userThere._id,
-            userName : userThere.userName,
-            role : userThere.role
-
-
-
-        },process.env.JSON_WEB_TOKEN,{expiresIn : "10m"})
-        res.status(200).json({message : "login sucess",token : ganearteToeken,sucess : true})
-
-
-
-
-    }catch(error){
-        console.log("error",error);
+    // collect the user name and the password
+    var {userName,password} = req.body
+    // checl whethet the user name exists or not
+    var userThere = await user.findOne({userName})
+    if(!userThere){
+      return  res.status(400).json({message : "invalid user name or password"})
     }
+
+    var isPassword = await byCrpt.compare(password,userThere.password)
+    console.log(isPassword);
+    if(!isPassword){
+        return res.status(400).json({message : "invalid user name or password"})
+
+    }
+
+    var gerenatedToeken = webToken.sign({
+        userName : userThere._id,
+        email : userThere.email,
+        role : userThere.password
+    },process.env.JSON_WEB_TOKEN,{expiresIn : "10m"})
+
+    res.status(200).json({message : "login sucessfull",token : gerenatedToeken})
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
