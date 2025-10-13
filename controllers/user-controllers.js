@@ -58,7 +58,7 @@ var login = async(req,res)=>{
     var gerenatedToeken = webToken.sign({
         userName : userThere._id,
         email : userThere.email,
-        role : userThere.password
+        role : userThere.role 
     },process.env.JSON_WEB_TOKEN,{expiresIn : "10m"})
 
     res.status(200).json({message : "login sucessfull",token : gerenatedToeken})
