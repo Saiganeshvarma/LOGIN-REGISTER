@@ -10,8 +10,7 @@ var authMiddlware = (req,res,next)=>{
     try{
 
         var deocode = jwt.verify(token,process.env.JSON_WEB_TOKEN)
-        console.log(deocode);
-        req.user = deocode
+         req.user = deocode
         next()
 
         
@@ -24,6 +23,9 @@ var authMiddlware = (req,res,next)=>{
 }
 
 module.exports = authMiddlware
+
+
+
 
 
 

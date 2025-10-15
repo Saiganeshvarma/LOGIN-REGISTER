@@ -1,17 +1,22 @@
 
 
-var adminMiddlware = (req,res,next)=>{
-    var userType = req.user.role 
-    console.log(userType);
+var adminMiddleware = (req,res,next)=>{
+
+    var userType = req.user.role
     if(userType !== "admin"){
-        return res.status(401).json({message : "only admin is alloawed"})
+        return res.json({message : "only admin is allowed"})
     }
     next()
+
+
 
 }
 
 
-module.exports = adminMiddlware
+module.exports = adminMiddleware
+
+
+
 
 
 

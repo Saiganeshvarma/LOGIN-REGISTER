@@ -4,7 +4,6 @@ var express = require("express")
 var connectToDatabase = require("./database/db")
 var userRoute = require("./routes/user-routes")
 var homeRoutes = require("./routes/home-route")
-
 var adminRoute = require("./routes/admin-routes")
 
 
@@ -27,6 +26,7 @@ app.use("/api/auth",userRoute)
 app.use("/api/welcome",homeRoutes)
 
 app.use("/api/welcome",adminRoute)
+
 
 
 
